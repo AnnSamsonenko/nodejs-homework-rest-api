@@ -4,6 +4,7 @@ require("dotenv").config();
 const { SECRET_KEY } = process.env;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const gravatar = require("gravatar");
 
 const registerUser = async userData => {
   const result = await User.findOne({ email: userData.email });
@@ -12,8 +13,10 @@ const registerUser = async userData => {
   }
   const password = userData.password;
   const hashedPassword = await bcrypt.hash(password, 10);
+  const avatarURL = gravatar.url(userData.email);
   const user = await User.create({
     ...userData,
+    avatarURL,
     password: hashedPassword,
   });
   return { user };
