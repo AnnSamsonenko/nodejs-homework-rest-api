@@ -6,7 +6,7 @@ const registerUser = async (req, res, next) => {
     res.status(201).json({
       status: "Created",
       code: 201,
-      user: { email: user.email, id: user._id },
+      user: { email: user.email, id: user._id, avatarURL: user.avatarURL },
     });
   } catch (e) {
     next(e);
